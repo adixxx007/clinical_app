@@ -1,0 +1,4 @@
+@login_required
+def patient_detail(request, pk):
+    patient = get_object_or_404(Patient, pk=pk)
+    return render(request, 'clinical/patient_detail.html', {'patient': patient})

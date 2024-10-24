@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}HSIS Clinical{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>Hospital System Information Software - Clinical Module</h1>
+        <nav>
+            <a href="{% url 'home' %}">Home</a> |
+            <a href="{% url 'patient_list' %}">Patients</a> |
+            <a href="{% url 'patient_create' %}">Add Patient</a>
+            <!-- Add other links as needed -->
+        </nav>
+    </header>
+    <hr>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
