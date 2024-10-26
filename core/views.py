@@ -57,3 +57,8 @@ def order_list(request):
 @login_required
 def clinical_home(request):
     return render(request, 'core/clinical_home.html')
+
+from django.http import HttpResponse
+
+def health_check(request):
+    return HttpResponse("OK")

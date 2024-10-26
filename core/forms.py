@@ -11,7 +11,7 @@ class PatientForm(forms.ModelForm):
 class ClinicalNoteForm(forms.ModelForm):
     class Meta:
         model = ClinicalNote
-        fields = '__all__'
+        fields = ['note']
 
 class OrderForm(forms.ModelForm):
     class Meta:
