@@ -2,8 +2,9 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.core.paginator import Paginator
-from .models import ClinicalNote, Patient, Order
-from .forms import ClinicalNoteForm, PatientForm, OrderForm
+from core.models import ClinicalNote, Patient, Order
+from core.forms import ClinicalNoteForm, PatientForm, OrderForm
+from django.http import HttpResponse
 
 # View for listing clinical notes
 @login_required
@@ -57,8 +58,6 @@ def order_list(request):
 @login_required
 def clinical_home(request):
     return render(request, 'core/clinical_home.html')
-
-from django.http import HttpResponse
 
 def health_check(request):
     return HttpResponse("OK")

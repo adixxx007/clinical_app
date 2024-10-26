@@ -22,3 +22,16 @@
     {% endif %}
   </span>
 </div>
+
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
+from django.core.paginator import Paginator
+from .models import ClinicalNote
+
+@login_required
+def clinicalnote_list(request):
+    notes = ClinicalNote.objects.all().order_by('-created_at')
+    paginator = Paginator(notes, 10)  # Show 10 notes per page
+    page_number = request.GET.get('page')
+    clinical_notes = paginator.get_page(page_number)
+    return render(request, 'clinical/clinicalnote_list.html', {'clinical_notes': clinical_notes})

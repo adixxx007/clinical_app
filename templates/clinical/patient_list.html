@@ -1,7 +1,4 @@
-def patient_list(request):
-    patients = Patient.objects.all()
-    return render(request, 'clinical/patient_list.html', {'patients': patients})
-    {% extends 'clinical/base.html' %}
+{% extends 'clinical/base.html' %}
 
 {% block title %}Patient List{% endblock %}
 

@@ -1,21 +1,5 @@
 from django import forms
-from .models import Patient, ClinicalNote, Order, Task
-from django.contrib.auth.models import User
-
-class PatientForm(forms.ModelForm):
-    class Meta:
-        model = Patient
-        fields = ['name', 'patient_id', 'age', 'address', 'medical_history']
-        widgets = {
-            'medical_history': forms.Textarea(attrs={'rows': 4}),
-            'address': forms.Textarea(attrs={'rows': 3}),
-        }
-
-    def clean_age(self):
-        age = self.cleaned_data.get('age')
-        if age < 0:
-            raise forms.ValidationError("Age cannot be negative")
-        return age
+from .models import ClinicalNote, Order, Patient
 
 class ClinicalNoteForm(forms.ModelForm):
     class Meta:
@@ -29,30 +13,9 @@ class ClinicalNoteForm(forms.ModelForm):
 class OrderForm(forms.ModelForm):
     class Meta:
         model = Order
-        fields = ['order_type', 'description', 'notes']
-        widgets = {
-            'notes': forms.Textarea(attrs={'rows': 3}),
-        }
+        fields = ['description', 'order_type', 'notes']
 
-class TaskForm(forms.ModelForm):
+class PatientForm(forms.ModelForm):
     class Meta:
-        model = Task
-        fields = ['assigned_to', 'description', 'due_date', 'priority', 'related_patient']
-        widgets = {
-            'due_date': forms.DateInput(attrs={'type': 'date'}),
-            'description': forms.Textarea(attrs={'rows': 3}),
-        }
-
-class PatientSearchForm(forms.Form):
-    search_query = forms.CharField(
-        required=False,
-        widget=forms.TextInput(attrs={'placeholder': 'Search patients...'})
-    )
-    date_from = forms.DateField(
-        required=False,
-        widget=forms.DateInput(attrs={'type': 'date'})
-    )
-    date_to = forms.DateField(
-        required=False,
-        widget=forms.DateInput(attrs={'type': 'date'})
-    )
+        model = Patient
+        fields = ['first_name', 'last_name', 'date_of_birth', 'gender', 'medical_history']
