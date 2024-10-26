@@ -3,23 +3,22 @@ from django.core.validators import MinValueValidator
 from django.contrib.auth.models import User
 
 class Patient(models.Model):
-    name = models.CharField(max_length=100)
-    patient_id = models.CharField(max_length=20, unique=True)
-    age = models.IntegerField(validators=[MinValueValidator(0)])
-    address = models.TextField()
-    medical_history = models.TextField()
+    GENDER_CHOICES = [
+        ('M', 'Male'),
+        ('F', 'Female'),
+        ('O', 'Other'),
+    ]
+
+    first_name = models.CharField(max_length=50)
+    last_name = models.CharField(max_length=50)
+    date_of_birth = models.DateField()
+    gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
+    medical_history = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    class Meta:
-        indexes = [
-            models.Index(fields=['name']),
-            models.Index(fields=['patient_id']),
-            models.Index(fields=['created_at']),
-        ]
-
     def __str__(self):
-        return f"{self.name} ({self.patient_id})"
+        return f"{self.first_name} {self.last_name}"
 
 class ClinicalNote(models.Model):
     note = models.TextField()
@@ -43,24 +42,15 @@ class Order(models.Model):
         return self.description
 
 class Task(models.Model):
-    PRIORITY_CHOICES = [
-        ('LOW', 'Low'),
-        ('MEDIUM', 'Medium'),
-        ('HIGH', 'High'),
-        ('URGENT', 'Urgent')
-    ]
-
-    assigned_to = models.ForeignKey(User, on_delete=models.CASCADE)
-    description = models.TextField()
+    title = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
     due_date = models.DateField()
-    priority = models.CharField(max_length=10, choices=PRIORITY_CHOICES, default='MEDIUM')
-    is_completed = models.BooleanField(default=False)
+    completed = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
-    completed_at = models.DateTimeField(null=True, blank=True)
-    related_patient = models.ForeignKey(Patient, on_delete=models.CASCADE, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Task for {self.assigned_to.username} - {self.priority}"
+        return self.title
 
 class AuditLog(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
@@ -72,7 +62,3 @@ class AuditLog(models.Model):
 
     def __str__(self):
         return f"{self.action} by {self.user} at {self.timestamp}"
-    def __str__(self):
-        return f"{self.action} by {self.user} at {self.timestamp}"
-    
-    
