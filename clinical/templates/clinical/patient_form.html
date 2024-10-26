@@ -1,0 +1,12 @@
+{% extends 'clinical/base.html' %}
+
+{% block title %}Add New Patient{% endblock %}
+
+{% block content %}
+<h2 class="mt-4">Add New Patient</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success">Save</button>
+</form>
+{% endblock %}

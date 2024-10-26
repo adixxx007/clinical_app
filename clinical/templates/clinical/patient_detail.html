@@ -1,0 +1,17 @@
+{% extends "clinical/base.html" %}
+
+{% block content %}
+<h1>Patient Details: {{ patient.name }}</h1>
+<p>Age: {{ patient.age }}</p>
+<p>Address: {{ patient.address }}</p>
+<p>Medical History: {{ patient.medical_history }}</p>
+
+<h2>Clinical Notes</h2>
+<ul>
+  {% for note in patient.notes.all %}
+    <li>{{ note.note }} ({{ note.created_at }})</li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'patient_list' %}">Back to Patient List</a>
+{% endblock %}

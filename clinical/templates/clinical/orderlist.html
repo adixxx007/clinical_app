@@ -1,0 +1,11 @@
+<!-- clinical/templates/clinical/order_list.html -->
+{% extends "clinical/base.html" %}
+
+{% block content %}
+<h2>Orders</h2>
+<ul>
+    {% for order in orders %}
+        <li>{{ order }}</li> <!-- Adjust this to display the specific fields you want -->
+    {% endfor %}
+</ul>
+{% endblock %}

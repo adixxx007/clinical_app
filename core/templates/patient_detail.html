@@ -1,4 +1,20 @@
+{% load crispy_forms_tags %}
 @login_required
 def patient_detail(request, pk):
     patient = get_object_or_404(Patient, pk=pk)
     return render(request, 'clinical/patient_detail.html', {'patient': patient})
+    {% extends 'clinical/base.html' %}
+
+    {% block title %}Patient Detail{% endblock %}
+    
+    {% block content %}
+    <h2 class="mt-4">{{ patient.first_name }} {{ patient.last_name }}</h2>
+    <ul class="list-group">
+        <li class="list-group-item"><strong>Date of Birth:</strong> {{ patient.date_of_birth }}</li>
+        <li class="list-group-item"><strong>Gender:</strong> {{ patient.get_gender_display }}</li>
+        <li class="list-group-item"><strong>Medical Record Number:</strong> {{ patient.medical_record_number }}</li>
+        <li class="list-group-item"><strong>Address:</strong> {{ patient.address }}</li>
+        <li class="list-group-item"><strong>Phone Number:</strong> {{ patient.phone_number }}</li>
+        <li class="list-group-item"><strong>Email:</strong> {{ patient.email }}</li>
+    </ul>
+    {% endblock %}

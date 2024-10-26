@@ -1,0 +1,13 @@
+{% extends "clinical/base.html" %}
+
+{% block content %}
+<h1>Clinical Notes</h1>
+<ul>
+  {% for note in notes %}
+    <li>{{ note.note }} ({{ note.created_at }}) - {{ note.patient.name }}</li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'patient_list' %}">Back to Patient List</a>
+{% endblock %}
+

@@ -1,9 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Hospital System Information Software</title>
-</head>
-<body>
+{% extends "clinical/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
     <h1>Welcome to the Hospital System Information Software</h1>
     <nav>
         <a href="{% url 'patient_list' %}">Patients</a> |
@@ -11,5 +9,4 @@
         <a href="#">Appointments</a>
     </nav>
     <p>This is the home page of your HSIS application.</p>
-</body>
-</html>
+{% endblock %}
