@@ -93,4 +93,32 @@ def patient_create(request):
         messages.error(request, f'An error occurred: {str(e)}')
         return redirect('patient_list')
 
-# Add similar views for Order and Task management...
+# New clinicalnote_list view
+@login_required
+def clinicalnote_list(request):
+    clinical_notes = ClinicalNote.objects.all().order_by('-created_at')
+    
+    paginator = Paginator(clinical_notes, 10)  # Show 10 clinical notes per page
+    page = request.GET.get('page')
+    clinical_notes = paginator.get_page(page)
+
+    return render(request, 'clinical/clinicalnote_list.html', {
+        'clinical_notes': clinical_notes
+    })
+
+@login_required
+def order_list(request):
+    orders = Order.objects.all().order_by('-created_at')
+    
+    paginator = Paginator(orders, 10)  # Show 10 orders per page
+    page = request.GET.get('page')
+    orders = paginator.get_page(page)
+
+    return render(request, 'clinical/order_list.html', {
+        'orders': orders
+    })
+
+# Clinical home view
+@login_required
+def clinical_home(request):
+    return render(request, 'clinical/clinical_home.html')

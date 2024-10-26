@@ -1,13 +1,24 @@
-{% extends "clinical/base.html" %}
-
-{% block content %}
-<h1>Clinical Notes</h1>
+<h2>Clinical Notes</h2>
 <ul>
-  {% for note in notes %}
-    <li>{{ note.note }} ({{ note.created_at }}) - {{ note.patient.name }}</li>
+  {% for note in clinical_notes %}
+    <li>{{ note.patient.name }} - {{ note.note }} ({{ note.created_at }})</li>
   {% endfor %}
 </ul>
 
-<a href="{% url 'patient_list' %}">Back to Patient List</a>
-{% endblock %}
+<div>
+  <span class="step-links">
+    {% if clinical_notes.has_previous %}
+      <a href="?page=1">&laquo; first</a>
+      <a href="?page={{ clinical_notes.previous_page_number }}">previous</a>
+    {% endif %}
 
+    <span class="current">
+      Page {{ clinical_notes.number }} of {{ clinical_notes.paginator.num_pages }}.
+    </span>
+
+    {% if clinical_notes.has_next %}
+      <a href="?page={{ clinical_notes.next_page_number }}">next</a>
+      <a href="?page={{ clinical_notes.paginator.num_pages }}">last &raquo;</a>
+    {% endif %}
+  </span>
+</div>

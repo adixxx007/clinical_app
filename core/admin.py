@@ -1,3 +1,6 @@
 from django.contrib import admin
+from .models import Patient, ClinicalNote, Order
 
-# Register your models here.
+admin.site.register(Patient)
+admin.site.register(ClinicalNote)
+admin.site.register(Order)
