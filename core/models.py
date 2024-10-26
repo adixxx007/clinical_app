@@ -46,4 +46,12 @@ class Appointment(models.Model):
     def __str__(self):
         return f"Appointment on {self.date} for {self.patient}"
     
-    
+class ClinicalNote(models.Model):
+    patient = models.ForeignKey('Patient', on_delete=models.CASCADE)
+    note = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    # Indented function as part of the class
+    def my_function(self):
+        print("This is a properly indented block.")
+

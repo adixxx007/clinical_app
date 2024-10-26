@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clinical Notes</title>
+</head>
+<body>
+    <h1>Clinical Notes</h1>
+    <ul>
+        {% for note in notes %}
+            <li>{{ note.details }}</li>
+        {% empty %}
+            <li>No clinical notes available.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

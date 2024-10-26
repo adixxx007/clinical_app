@@ -1,20 +1,11 @@
-# core/urls.py
-
-from django.urls import path
-from . import views  # Import views to use the `home` function
-
-urlpatterns = [
-    path('', views.home, name='home'),  # Home view for the root URL
-]
-
-# hsis/urls.py
-from django.contrib import admin
 from django.urls import path, include
+from . import views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('clinical/', include('clinical_app.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),  # Include this line
-    path('clinical/', include('clinical.urls')),  # Include your clinical app URLs
-    path('', views.home, name='home'),  # Home view for the root URL
+    path('clinicalnotes/', views.clinicalnote_list, name='clinicalnote_list'),
+    path('patients/', views.patient_list, name='patient_list'),
+    path('patients/<int:pk>/', views.patient_detail, name='patient_detail'),
+    path('patients/create/', views.patient_create, name='patient_create'),
+    path('orders/', views.order_list, name='order_list'),
+    path('clinical/', include('clinical.urls')),  # Corrected include
 ]
