@@ -1,6 +1,6 @@
 from django.db import models
-from django.core.validators import MinValueValidator
 from django.contrib.auth.models import User
+from django.utils import timezone
 
 class Patient(models.Model):
     GENDER_CHOICES = [
@@ -21,10 +21,11 @@ class Patient(models.Model):
         return f"{self.first_name} {self.last_name}"
 
 class ClinicalNote(models.Model):
+    patient = models.ForeignKey('clinical_app.Patient', on_delete=models.CASCADE)
     note = models.TextField()
-    diagnosis = models.CharField(max_length=255)
-    treatment_plan = models.TextField()
-    next_appointment = models.DateField()
+    diagnosis = models.CharField(max_length=255, default='No diagnosis provided')  # Added default
+    treatment_plan = models.TextField(default='No treatment plan provided')
+    next_appointment = models.DateField(default=timezone.now)  # Moved inside the model
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -56,9 +57,4 @@ class AuditLog(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     action = models.CharField(max_length=50)
     model_name = models.CharField(max_length=50)
-    object_id = models.CharField(max_length=50)
-    timestamp = models.DateTimeField(auto_now_add=True)
-    details = models.TextField()
-
-    def __str__(self):
-        return f"{self.action} by {self.user} at {self.timestamp}"
+    object
