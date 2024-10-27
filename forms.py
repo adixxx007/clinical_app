@@ -4,7 +4,7 @@ from .models import ClinicalNote, Order, Patient, Task
 class ClinicalNoteForm(forms.ModelForm):
     class Meta:
         model = ClinicalNote
-        fields = ['note', 'diagnosis', 'treatment_plan', 'next_appointment']
+        fields = ['patient', 'note', 'next_appointment', 'diagnosis', 'treatment_plan']
         widgets = {
             'next_appointment': forms.DateInput(attrs={'type': 'date'}),
             'treatment_plan': forms.Textarea(attrs={'rows': 4}),
